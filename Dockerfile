@@ -6,6 +6,7 @@ FROM microsoft/dotnet:2.2-sdk-stretch
 # --> binutils curl mono-devel ca-certificates-mono fsharp mono-vbnc nuget referenceassemblies-pcl
 ENV MONO_VERSION 5.18.0.225
 
+# Get new apt key
 RUN apt-get update \
   && apt-get install -y --no-install-recommends gnupg dirmngr \
   && rm -rf /var/lib/apt/lists/* \
@@ -17,9 +18,12 @@ RUN apt-get update \
   && apt-key list | grep Xamarin \
   && apt-get purge -y --auto-remove gnupg dirmngr
 
+# Install mono and tools
 RUN echo "deb http://download.mono-project.com/repo/debian stable-stretch/snapshots/$MONO_VERSION main" > /etc/apt/sources.list.d/mono-official-stable.list \
   && apt-get update \
-  && apt-get install -y binutils curl mono-devel ca-certificates-mono fsharp nuget referenceassemblies-pcl \
+  && apt-get install -y \
+    binutils curl locales  \
+    mono-devel ca-certificates-mono fsharp nuget referenceassemblies-pcl \
   && rm -rf /var/lib/apt/lists/* /tmp/*
 
 # Set Locale
