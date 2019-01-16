@@ -21,3 +21,9 @@ RUN echo "deb http://download.mono-project.com/repo/debian stable-stretch/snapsh
   && apt-get update \
   && apt-get install -y binutils curl mono-devel ca-certificates-mono fsharp nuget referenceassemblies-pcl \
   && rm -rf /var/lib/apt/lists/* /tmp/*
+
+# Set Locale
+ENV LANGUAGE=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
