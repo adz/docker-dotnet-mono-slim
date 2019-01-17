@@ -1,5 +1,7 @@
 FROM microsoft/dotnet:2.2-sdk-stretch
 
+ENV LANG C.UTF-8
+
 # From: https://github.com/mono/docker/blob/d68573b0640b3e191bf41b64745a6f0683a9c17a/5.18.0.225/slim/Dockerfile
 # Adjusted packages as per https://github.com/mono/docker/blob/d68573b0640b3e191bf41b64745a6f0683a9c17a/5.18.0.225/Dockerfile
 # but without vb:
@@ -26,8 +28,3 @@ RUN echo "deb http://download.mono-project.com/repo/debian stable-stretch/snapsh
     mono-devel ca-certificates-mono fsharp nuget referenceassemblies-pcl \
   && rm -rf /var/lib/apt/lists/* /tmp/*
 
-# Set Locale
-ENV LANGUAGE=en_US.UTF-8
-ENV LANG=en_US.UTF-8
-ENV LC_ALL=en_US.UTF-8
-RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
